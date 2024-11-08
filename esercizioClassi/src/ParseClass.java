@@ -3,30 +3,36 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ParseClass  {
-
-static private Scanner scanner = new Scanner(System.in);
-
+	
+	static private Scanner scanner = new Scanner(System.in);
+	
     public static Object Parse(String className) {
-try {
-        Class<?> clazz;
-clazz = Class.forName(className);
-        return Parse(clazz);
-} catch (ClassNotFoundException e) {
-// TODO Auto-generated catch block
-e.printStackTrace();
-return null;
-}
+		try {
+	        Class<?> clazz;
+			clazz = Class.forName(className);
+	        return Parse(clazz);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
     }
-
+	
     public static Object Parse(Class<?> clazz) { //String className) {
 
         try {
+            //Class<?> clazz = Class.forName(className);
+
             Object instance = clazz.getDeclaredConstructor().newInstance();
 
-            Field[] fields = clazz.getDeclaredFields();
+            List<Field> fields = getAllFields(clazz); // clazz.getDeclaredFields();
 
             for (Field field : fields) {
                 field.setAccessible(true);  // Make private fields accessible
@@ -54,15 +60,15 @@ return null;
         } else if (fieldType == double.class || fieldType == Double.class ) {
             return Double.parseDouble(input);
         } else if (fieldType == Date.class) {
-        java.sql.Date date=null;
-try {
-        java.util.Date dDate;
-//dDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(input);
-dDate = new SimpleDateFormat("dd/MM/yyyy").parse(input);
-date = new Date(dDate.getTime());
-} catch (ParseException e) {
-//e.printStackTrace();
-}
+        	java.sql.Date date=null;
+			try {
+	        	java.util.Date dDate;
+//				dDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse(input);
+				dDate = new SimpleDateFormat("dd/MM/yyyy").parse(input);
+				date = new Date(dDate.getTime());
+			} catch (ParseException e) {
+				//e.printStackTrace();
+			}
             return date;
         } else if (fieldType == boolean.class||fieldType == Boolean.class) {
             return Boolean.parseBoolean(input);
@@ -78,4 +84,25 @@ date = new Date(dDate.getTime());
             return null;  // Tutto il resto Ã¨ null!!
         }
     }
+    
+    public static List<Field> getAllFields(Class<?> type) {
+        List<Field> fields = new ArrayList<Field>();
+        for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            fields.addAll(Arrays.asList(c.getDeclaredFields()));
+        }
+        return fields;
+    }
+//    public static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+//        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+//
+//        if (type.getSuperclass() != null) {
+//            getAllFields(fields, type.getSuperclass());
+//        }
+//
+//        return fields;
+//    }
+//
+//    public void getLinkedListFields() {
+//        System.out.println(getAllFields(new LinkedList<Field>(), LinkedList.class));
+//    }
 }

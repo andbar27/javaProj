@@ -1,5 +1,5 @@
 
-public class Persona {
+public class Persona extends EssereVivente{
 	String nome;
 	int eta;
 	
@@ -31,6 +31,18 @@ public class Persona {
 	@Override
 	public String toString() {
 		return "nome=" + nome + ", eta=" + eta;
+	}
+
+	@Override
+	public void SetColoreOcchi() {
+		this.coloreOcchi = "blu";
+		
+	}
+
+	@Override
+	public String GetColoreOcchi() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,5 @@
 
-public class Paziente extends Persona {
+public class Paziente extends Persona implements Specs{
 	private String illness;
 	private Boolean codiceRosso;
 	
@@ -27,6 +27,18 @@ public class Paziente extends Persona {
 
 	public void setCodiceRosso(Boolean codiceRosso) {
 		this.codiceRosso = codiceRosso;
+	}
+
+	@Override
+	public String GetVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String GetDate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
