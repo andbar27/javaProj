@@ -1,10 +1,9 @@
-package esercizioClassi;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		
+		/*
 		int stLen = 3;
 		Scanner scanner = new Scanner(System.in);
 		Studente[] studenti = new Studente[stLen]; 
@@ -19,7 +18,9 @@ public class Main {
 	        String matricola = scanner.nextLine();
 	        
 	        System.out.print("Inserisci eta: ");
-	        int eta = scanner.nextInt();
+	        int eta = scanner.nextInt(); scanner.next();
+	        // scanner.nextInt() lascia nel buffer lo \n quindi 
+	        // dobbiamo svuotare il buffer con un altro next()
 	        
 	        
 	        
@@ -32,7 +33,12 @@ public class Main {
 		}
 		
 		
+		// Con Parse Class, NON FUNZIONA CON SOTTOCLASSI ):
+		Studente s1 = (Studente)ParseClass.Parse(Studente.class);
+		
+		
 		scanner.close();
+		*/
 	}
 
 }

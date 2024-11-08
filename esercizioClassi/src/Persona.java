@@ -1,4 +1,3 @@
-package esercizioClassi;
 
 public class Persona {
 	String nome;
@@ -6,9 +5,12 @@ public class Persona {
 	
 	
 	public Persona(String nome, int eta) {
-		super();
 		this.nome = nome;
 		this.eta = eta;
+	}
+	
+	public Persona() {
+		
 	}
 
 

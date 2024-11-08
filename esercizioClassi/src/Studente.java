@@ -1,4 +1,3 @@
-package esercizioClassi;
 
 public class Studente extends Persona{
 	String matricola;
