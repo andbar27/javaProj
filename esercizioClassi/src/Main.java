@@ -1,17 +1,17 @@
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Main {
 
 	public static void main(String[] args) {
-		if (false) {
 			int stLen = 3;
 			Scanner scanner = new Scanner(System.in);
 			Studente[] studenti = new Studente[stLen]; 
 			
 			for(int i=0; i<studenti.length; i++) {
-				System.out.print("Inserisci Studente n°"+ i+1 + "\n");
+				System.out.print("Inserisci Studente n°"+ (i+1) + "\n");
 		        
 				System.out.print("Inserisci nome: ");
 		        String nome = scanner.nextLine();
@@ -20,13 +20,17 @@ public class Main {
 		        String matricola = scanner.nextLine();
 		        
 		        System.out.print("Inserisci eta: ");
-		        int eta = scanner.nextInt(); scanner.next();
+		        int eta = scanner.nextInt(); scanner.nextLine();
 		        // scanner.nextInt() lascia nel buffer lo \n quindi 
 		        // dobbiamo svuotare il buffer con un altro next()
 		        
+		        System.out.print("Inserisci corso: ");
+		        String corso = scanner.nextLine();
 		        
+		        System.out.print("Inserisci anno immatricolazione: ");
+		        int annoImm = scanner.nextInt(); scanner.nextLine();
 		        
-		        studenti[i] = new Studente(nome, eta, matricola);
+		        studenti[i] = new Studente(nome, eta, matricola, corso, annoImm);
 			
 			}
 			
@@ -34,30 +38,9 @@ public class Main {
 				System.out.println(studenti[i]);
 			}
 			
-			
-			// Con Parse Class, NON FUNZIONA CON SOTTOCLASSI ):
-			Studente s1 = (Studente)ParseClass.Parse(Studente.class);
-			
-			
 			scanner.close();
 		
-		
-		LinkedList<Studente> lStud = new LinkedList<Studente>();
-		lStud.add((Studente)ParseClass.Parse(Studente.class));
-		lStud.add((Studente)ParseClass.Parse(Studente.class));
-		
-		System.out.println(lStud);
-		}
-		LinkedList<Integer> li = new LinkedList<Integer>();
-		li.add(10);
-		li.add(20);
-		li.add(1);
-		System.out.println(li);
-		
-		Collections.sort(li);
-		System.out.println(li);
-		
-		Collections.reverse(li);
+			Arrays.sort(studenti);
 		
 		
 		
