@@ -38,6 +38,8 @@ public class ProductApp {
 			System.out.println(p);
 		}
 		
+		
+		
 		lp.sort(new Comparator<Prodotto>() {
 			public int compare(Prodotto p1, Prodotto p2) {
 				return p1.calculateDiscount().compareTo(p2.calculateDiscount());
