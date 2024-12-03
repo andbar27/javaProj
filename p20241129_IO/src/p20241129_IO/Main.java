@@ -3,6 +3,7 @@ package p20241129_IO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -89,10 +90,41 @@ public class Main {
 		
 		
 		ObjectMapper objMapper = new ObjectMapper();
+		// Converto da Oggetto a JSON
 		String jsonString = objMapper.writeValueAsString(w1);
 		
 		System.out.println(jsonString);
 		
+		// Converto da JSON a Oggetto
+		Wifi w2 = objMapper.readValue(jsonString, Wifi.class);
+		System.out.println(w2);
 		
+		
+		// Converto da Oggetto a JSON
+		BufferedWriter fileWJson = Util.OpenFileForWriting("listaWifiJson.txt");
+		for(Wifi w : lw2) {
+			fileWJson.write(objMapper.writeValueAsString(w) + "\n");
+		}
+		fileWJson.close();
+		
+		
+		// Converto da JSON a Oggetto
+		ArrayList<Wifi> lwJ = new ArrayList<Wifi>();
+		BufferedReader fileRJson = Util.OpenFileForReading("listaWifiJson.txt");
+		String line = fileRJson.readLine();
+		while(line != null) {
+			lwJ.add(objMapper.readValue(line, Wifi.class));
+			line = fileRJson.readLine();
+		}
+		fileRJson.close();
+		
+		
+		for(Wifi w : lwJ) {
+			System.out.println(w);
+		}
+		
+		
+		
+	
 	}
 }
