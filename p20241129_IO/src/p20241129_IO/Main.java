@@ -123,7 +123,16 @@ public class Main {
 			System.out.println(w);
 		}
 		
+		System.out.println(lwJ);
 		
+		
+		// Da Lista a JSON
+		String list_wifi_json = objMapper.writeValueAsString(lwJ);
+		System.out.println(list_wifi_json);
+		
+		lwJ.clear();
+		lwJ = objMapper.readValue(list_wifi_json, lwJ.getClass());
+		System.out.println(lwJ);
 		
 	
 	}
