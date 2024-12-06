@@ -130,6 +130,7 @@ public class Main {
 		String list_wifi_json = objMapper.writeValueAsString(lwJ);
 		System.out.println(list_wifi_json);
 		
+		// Da JSON a Lista<Wifi>
 		lwJ.clear();
 		lwJ = objMapper.readValue(list_wifi_json, lwJ.getClass());
 		System.out.println(lwJ);
