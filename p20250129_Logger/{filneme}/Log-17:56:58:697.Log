@@ -1,0 +1,9 @@
+17:46:24 [main] ERROR p20250129_Logger.Log4jDemo - Log4j Error
+17:46:24 [main] FATAL p20250129_Logger.Log4jDemo - Log4j Fatal
+17:46:24 [main] INFO  p20250129_Logger.Log4jDemo - somma
+17:46:24 [main] INFO  p20250129_Logger.Log4jDemo - sottrazione
+17:46:24 [main] INFO  p20250129_Logger.Log4jDemo - moltiplicazione
+17:46:24 [main] INFO  p20250129_Logger.Log4jDemo - divisione
+17:56:58 [main] INFO  p20250129_Logger.Log4jDemo - Log4j Info
+17:56:58 [main] DEBUG p20250129_Logger.Log4jDemo - Log4j Debug
+17:56:58 [main] WARN  p20250129_Logger.Log4jDemo - Log4j Warning

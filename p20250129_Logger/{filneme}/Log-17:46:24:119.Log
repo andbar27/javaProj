@@ -1,0 +1,8 @@
+17:32:56 [main] INFO  p20250129_Logger.Log4jDemo - Log4j Info
+17:32:56 [main] DEBUG p20250129_Logger.Log4jDemo - Log4j Debug
+17:32:56 [main] WARN  p20250129_Logger.Log4jDemo - Log4j Warning
+17:32:56 [main] ERROR p20250129_Logger.Log4jDemo - Log4j Error
+17:32:56 [main] FATAL p20250129_Logger.Log4jDemo - Log4j Fatal
+17:46:24 [main] INFO  p20250129_Logger.Log4jDemo - Log4j Info
+17:46:24 [main] DEBUG p20250129_Logger.Log4jDemo - Log4j Debug
+17:46:24 [main] WARN  p20250129_Logger.Log4jDemo - Log4j Warning
