@@ -1,9 +1,15 @@
 package it.spring.universita.utility;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import it.spring.universita.dto.CognomeImmatricolazioneDTO;
 import it.spring.universita.dto.CognomeNascitaDTO;
+import it.spring.universita.dto.MaterieDTO;
+import it.spring.universita.dto.ProfessoreDTO;
+import it.spring.universita.entity.Professore;
 import it.spring.universita.entity.Studente;
 
 public class Queries {
@@ -55,6 +61,25 @@ public class Queries {
 		CognomeImmatricolazioneDTO dto = new CognomeImmatricolazioneDTO();
 		dto.setCognome(older.getCognome());
 		dto.setAnno_immatricolazione(older.getAnno_nascita());
+		return dto;
+	}
+	
+	public static List<ProfessoreDTO> viewAllProfessoreMateria(List<Professore> lp, String materia){
+		List<ProfessoreDTO> ldto = new ArrayList<ProfessoreDTO>();
+		for(Professore p : lp) {
+			if(p.getMateria() == materia)
+				ldto.add(Conversion.fromProfessoreToProfessoreDTO(p));
+		}
+		return ldto;
+	}
+	
+	public static MaterieDTO viewAllMateria(List<Professore> lp) {
+		Set<String> materie = new HashSet<String>();
+		for(Professore p : lp) 
+			materie.add(p.getMateria());
+		
+		MaterieDTO dto = new MaterieDTO();
+		dto.setMaterie(new ArrayList<String>(materie));
 		return dto;
 	}
 

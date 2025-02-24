@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import it.spring.universita.entity.Professore;
 
 
 
-
-public class ProfessoreDAO {
+@Repository
+public class ProfessoreDAOImpl implements ProfessoreDAO {
 
 	private Map<Integer, Professore> mappa = new HashMap<>();
 

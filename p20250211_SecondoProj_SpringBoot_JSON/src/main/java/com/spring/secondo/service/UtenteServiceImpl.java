@@ -2,6 +2,9 @@ package com.spring.secondo.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.spring.secondo.dao.DAOUtenteMappa;
 import com.spring.secondo.dto.ListaNC_LenDTO;
 import com.spring.secondo.dto.NomeCognomeDTO;
@@ -9,11 +12,15 @@ import com.spring.secondo.dto.UtenteDto;
 import com.spring.secondo.entity.Utente;
 import com.spring.secondo.utility.Utility;
 
-public class UtenteService {
+@Service
+public class UtenteServiceImpl implements UtenteService {
 	
 	// è fuorviante perché DAOUtenteMappa è esso stesso la persistenza
 	// invece dovrebbe essere solo un punto d'accesso
-	private DAOUtenteMappa dao = new DAOUtenteMappa();
+	// private DAOUtenteMappa dao = new DAOUtenteMappa();
+	
+	@Autowired	//Injection di spring
+	private DAOUtenteMappa dao;
 	
 	public boolean registra(UtenteDto dto) {
 		// trasformo dto in entity

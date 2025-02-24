@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import it.spring.universita.entity.Studente;
 
 
 
-
-public class StudenteDAO {
+@Repository
+public class StudenteDAOImpl implements StudenteDAO {
 
 	private Map<Integer, Studente> mappa = new HashMap<>();
 

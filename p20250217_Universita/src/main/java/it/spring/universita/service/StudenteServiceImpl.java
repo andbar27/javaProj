@@ -2,18 +2,23 @@ package it.spring.universita.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import it.spring.universita.dao.StudenteDAO;
+import it.spring.universita.dto.CognomeImmatricolazioneDTO;
 import it.spring.universita.dto.CognomeNascitaDTO;
-import it.spring.universita.dto.NomeStudenteDTO;
 import it.spring.universita.dto.NomiStudentiDTO;
 import it.spring.universita.dto.StudenteDTO;
 import it.spring.universita.entity.Studente;
 import it.spring.universita.utility.Conversion;
 import it.spring.universita.utility.Queries;
 
-public class StudenteService {
+@Service
+public class StudenteServiceImpl implements StudenteService {
 	
-	private StudenteDAO dao = new StudenteDAO();
+	@Autowired
+	private StudenteDAO dao;
 	
 	public boolean createStudente(StudenteDTO dto) {
 		return(dao.insert(Conversion.fromStudenteDTOToStudente(dto)));
@@ -55,8 +60,11 @@ public class StudenteService {
 	}
 	
 	public CognomeNascitaDTO getYoungerStudente() {
-		CognomeNascitaDTO dto = new CognomeNascitaDTO();
 		return Queries.getYoungerStudente(dao.selectAll());
+	}
+	
+	public CognomeImmatricolazioneDTO getOlderFreqStudente() {
+		return Queries.getOlderFreqStudente(dao.selectAll());
 	}
 	
 	

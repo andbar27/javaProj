@@ -21,7 +21,5 @@ public class NomiStudentiDTO {
 	public void setNomi(List<String> nomi) {
 		this.nomi = nomi;
 	}
-	
-	
 
 }

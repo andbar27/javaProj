@@ -2,6 +2,7 @@ package it.spring.universita.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.spring.universita.dto.NomeStudenteDTO;
+import it.spring.universita.dto.CognomeImmatricolazioneDTO;
+import it.spring.universita.dto.CognomeNascitaDTO;
 import it.spring.universita.dto.NomiStudentiDTO;
 import it.spring.universita.dto.StudenteDTO;
 import it.spring.universita.service.StudenteService;
@@ -19,7 +21,8 @@ import it.spring.universita.service.StudenteService;
 @RequestMapping(path="/studente")
 public class StudenteController {
 	
-	private StudenteService service = new StudenteService();
+	@Autowired
+	private StudenteService service;
 	
 	@PostMapping(path="/create", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public boolean createStudente(@RequestBody StudenteDTO dto) {
@@ -50,5 +53,15 @@ public class StudenteController {
 	public NomiStudentiDTO viewAllNomiStudenti(){
 		return service.viewAllNomiStudenti();
 	}
-
+	
+	@GetMapping(path="/getYounger", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CognomeNascitaDTO getYoungerStudente() {
+		return service.getYoungerStudente();
+	}
+	
+	@GetMapping(path="/getOlderFreq", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CognomeImmatricolazioneDTO getOlderFreqStudente() {
+		return service.getOlderFreqStudente();
+	}
+	
 }
