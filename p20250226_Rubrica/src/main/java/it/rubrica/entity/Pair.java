@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 @JsonDeserialize
-public class Pair {
+public class Pair implements Comparable<Pair>{
 	private String first;
 	private String second;
 	
@@ -48,4 +48,15 @@ public class Pair {
 			return true;
 		return false;
 	}
+
+	@Override
+	public int compareTo(Pair o) {
+		if((this.first + this.second).hashCode() > (o.first + o.second).hashCode())
+			return 1;
+		if((this.first + this.second).hashCode() == (o.first + o.second).hashCode())
+			return 0;
+		return -1;
+	}
+	
+	
 }

@@ -3,19 +3,16 @@ package it.rubrica.dto;
 import java.util.Map;
 import java.util.TreeMap;
 
-import it.rubrica.entity.Pair;
-
 
 public class RubricaDTO {
 	
 	private int id;
 	private String proprietario;
 	private int anno_creazione;
-	private Map<Pair, ContattoDTO> contatti ;
+	private Map<String, ContattoDTO> contatti = new TreeMap<String, ContattoDTO>();
 	
 	public RubricaDTO() {
 		System.out.println("constructor");
-		contatti = new TreeMap<Pair, ContattoDTO>();
 	}
 
 	public RubricaDTO(int id, String proprietario, int anno_creazione) {
@@ -50,17 +47,17 @@ public class RubricaDTO {
 		this.anno_creazione = anno_creazione;
 	}
 
-	public Map<Pair, ContattoDTO> getContatti() {
+	public Map<String, ContattoDTO> getContatti() {
 		return contatti;
 	}
 
-	public void setContatti(Map<Pair, ContattoDTO> contatti) {
+	public void setContatti(Map<String, ContattoDTO> contatti) {
 		System.out.println("set");
 		this.contatti = contatti;
 	}
 
 	public boolean addContatto(ContattoDTO c) {
-		Pair p = new Pair(c.getNome(), c.getCognome());
+		String p = (c.getNome() + c.getCognome());
 		if(this.contatti.containsKey(p))
 			return false;
 		this.contatti.put(p, c);
