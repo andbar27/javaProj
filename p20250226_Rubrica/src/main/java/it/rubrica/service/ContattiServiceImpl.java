@@ -12,7 +12,7 @@ import it.rubrica.dto.NomeCognomeDTO;
 import it.rubrica.entity.Contatto;
 import it.rubrica.entity.Rubrica;
 import it.rubrica.utility.Conversion;
-import it.rubrica.utility.Pair;
+import it.rubrica.entity.Pair;
 
 @Service
 public class ContattiServiceImpl implements ContattiService {

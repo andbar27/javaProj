@@ -11,7 +11,7 @@ public interface ContattiService {
 	
 	public ContattoDTO selectContatto(int id, String nome, String cognome);
 
-	public boolean editContatto(int id, ContattoDTO dto);
+	public void editContatto(int id, ContattoDTO dto);
 	
 	public ContattoDTO removeContatto(int id, String nome, String cognome);
 	
@@ -29,7 +29,7 @@ public interface ContattiService {
 	
 	public List<String> removeByGruppo(int id, String gruppo);
 	
-	public boolean setPreferitoContatto(int id, String nome, String cognome);
+	public void setPreferitoContatto(int id, String nome, String cognome);
 	
 	public List<ContattoDTO> selectByPreferito(int id);
 

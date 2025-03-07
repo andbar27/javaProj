@@ -22,8 +22,6 @@ public class RubricaServiceImpl implements RubricaService {
 	private RubricaDAO dao;
 	
 	public void newRubrica(RubricaDTO dto) {
-		if(dao.selectById(dto.getId()) != null)
-			throw new RuntimeException("id rubrica già esistente");
 		dao.insert(new Rubrica(dto.getId(), dto.getProprietario(), dto.getAnno_creazione()));
 	}
 	

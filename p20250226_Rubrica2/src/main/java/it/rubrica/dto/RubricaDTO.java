@@ -59,7 +59,7 @@ public class RubricaDTO {
 	public boolean addContatto(ContattoDTO c) {
 		String p = (c.getNome() + c.getCognome());
 		if(this.contatti.containsKey(p))
-			return false;
+			throw new RuntimeException("id contatto già presente");
 		this.contatti.put(p, c);
 		return true;
 	}

@@ -55,7 +55,7 @@ public class Rubrica {
 	public boolean addContatto(Contatto c) {
 		String p = (c.getNome() + c.getCognome());
 		if(this.contatti.containsKey(p))
-			return false;
+			throw new RuntimeException("id contatto già presente");
 		this.contatti.put(p, c);
 		return true;
 	}
@@ -64,7 +64,7 @@ public class Rubrica {
 		String p = (nome + cognome);
 		if(this.contatti.containsKey(p))
 			return this.contatti.get(p);
-		return null;
+		throw new RuntimeException("id contatto non presente");
 	}
 
 }

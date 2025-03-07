@@ -15,7 +15,7 @@ public class RubricaDAOImpl implements RubricaDAO{
 
 	public boolean insert(Rubrica rubrica) {
 		if(mappa.containsKey(rubrica.getId()))
-			return false;
+			throw new RuntimeException("id rubrica già presente");
 		
 		mappa.put(rubrica.getId(), rubrica);
 		return true;
@@ -26,12 +26,16 @@ public class RubricaDAOImpl implements RubricaDAO{
 	}
 
 	public Rubrica selectById(Integer idRubrica) {
+		if(!mappa.containsKey(idRubrica))
+			throw new RuntimeException("id rubrica non presente");
 		return mappa.get(idRubrica);
 	}
 	
 	public boolean delete(Integer idRubrica) {
+		if(!mappa.containsKey(idRubrica))
+			throw new RuntimeException("id rubrica non presente");
 		Rubrica rubrica = mappa.remove(idRubrica);
-		return rubrica!=null;
+		return rubrica != null;
 	}
 
 }

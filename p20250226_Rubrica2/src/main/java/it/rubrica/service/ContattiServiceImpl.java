@@ -22,32 +22,25 @@ public class ContattiServiceImpl implements ContattiService {
 	public void newContatto(int id, ContattoDTO c) {
 		if(dao.selectById(id) != null)
 			dao.selectById(id).addContatto(Conversion.fromContattoDTOToContatto(c));
-
-		throw new RuntimeException("id contatti già presente");
 	}
 	
 	public ContattoDTO selectContatto(int id, String nome, String cognome) {
 		return Conversion.fromContattoToContattoDTO(dao.selectById(id).getContatto(nome, cognome));
 	}
 
-	public boolean editContatto(int id, ContattoDTO dto) {
+	public void editContatto(int id, ContattoDTO dto) {
 		Contatto c = dao.selectById(id).getContatto(dto.getNome(), dto.getCognome());
-		if(c == null) return false;
-		
 		c.setNumero(dto.getNumero());
 		c.setData_nascita(dto.getData_nascita());
 		c.setGruppo(dto.getGruppo());
 		c.setPreferito(dto.isPreferito());
-		return true;
 	}
 	
 	public ContattoDTO removeContatto(int id, String nome, String cognome) {
 		Rubrica r = dao.selectById(id);
-		Contatto c =r.getContatto(nome, cognome);
+		Contatto c = r.getContatto(nome, cognome);
 		
-		if(c != null)
-			r.getContatti().remove((nome + cognome));
-		
+		r.getContatti().remove((nome + cognome));
 		return Conversion.fromContattoToContattoDTO(c);
 	}
 	
@@ -56,47 +49,42 @@ public class ContattiServiceImpl implements ContattiService {
 	}
 	
 	public int sizeRubrica(int id) {
-		Rubrica r = dao.selectById(id);
-		if(r == null) return 0;
 		return dao.selectById(id).getContatti().size();
 	}
 	
 	public List<String> numeriContatti(int id){
 		List<String> numeri = new ArrayList<String>();
 		
-		for(Contatto c :dao.selectById(id).getContatti().values())
+		for(Contatto c : dao.selectById(id).getContatti().values())
 			numeri.add(c.getNumero());
 		
 		return numeri;
 	}
 	
 	public ContattoDTO selectByNumero(int id, String numero) {
-		Rubrica r = dao.selectById(id);
-		
-		for(Contatto c : r.getContatti().values()) 
-			if(c.getNumero() == numero)
+		System.out.println("num: " + numero);
+		for(Contatto c : dao.selectById(id).getContatti().values()) 
+			if(c.getNumero().equals(numero))
 				return Conversion.fromContattoToContattoDTO(c);
 		
-		return null;
+		throw new RuntimeException("numero non presente");
 	}
 	
 	public List<NomeCognomeDTO> selectNomeCognomeByGruppo(int id, String gruppo){
-		Rubrica r = dao.selectById(id);
 		List<NomeCognomeDTO> ldto = new ArrayList<NomeCognomeDTO>();
 		
-		for(Contatto c : r.getContatti().values()) 
-			if(c.getGruppo() == gruppo)
+		for(Contatto c : dao.selectById(id).getContatti().values()) 
+			if(c.getGruppo().equals(gruppo))
 				ldto.add(new NomeCognomeDTO(c.getNome(), c.getCognome()));
 		
 		return ldto;
 	}
 	
 	public List<String> selectNumeriByGruppo(int id, String gruppo){
-		Rubrica r = dao.selectById(id);
 		List<String> numeri = new ArrayList<String>();
 		
-		for(Contatto c : r.getContatti().values()) 
-			if(c.getGruppo() == gruppo)
+		for(Contatto c : dao.selectById(id).getContatti().values()) 
+			if(c.getGruppo().equals(gruppo))
 				numeri.add(c.getNumero());
 		
 		return numeri;
@@ -104,23 +92,23 @@ public class ContattiServiceImpl implements ContattiService {
 	
 	public List<String> removeByGruppo(int id, String gruppo){
 		Rubrica r = dao.selectById(id);
-		List<String> numeri = new ArrayList<String>();
+		System.out.println("grup: " + gruppo);
+		List<String> idC = new ArrayList<String>();
 		
 		for(Contatto c : r.getContatti().values()) 
-			if(c.getGruppo() == gruppo) {
-				numeri.add(c.getNumero());
-				r.getContatti().remove((c.getNome() + c.getCognome()));
-			}
+			if(c.getGruppo().equals(gruppo)) 
+				idC.add(c.getNome()+c.getCognome());
 		
-		return numeri;
+		for(String c : idC)
+			r.getContatti().remove(c);
+		
+		return idC;
 	}
 	
-	public boolean setPreferitoContatto(int id, String nome, String cognome) {
+	public void setPreferitoContatto(int id, String nome, String cognome) {
 		Contatto c = dao.selectById(id).getContatto(nome, cognome);
-		if(c == null)
-			return false;
+		
 		c.setPreferito(true);
-		return true;
 	}
 	
 	public List<ContattoDTO> selectByPreferito(int id){

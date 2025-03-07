@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +38,7 @@ public class RubricaController {
 	private ContattiService cservice;
 	
 	
-	@PostMapping(path="/new", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path="/new", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void newRubrica(@RequestBody RubricaDTO dto) {
 		service.newRubrica(dto);
 	}
@@ -50,7 +53,7 @@ public class RubricaController {
 		return service.selectAllRubrica();
 	}
 	
-	@GetMapping(path="/remove/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path="/remove/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean removeRubrica(@PathVariable int id) {
 		return service.removeRubrica(id);
 	}
@@ -60,12 +63,12 @@ public class RubricaController {
 		return service.selectNomeAnnoRubrica(id);
 	}
 	
-	@PostMapping(path="/editProprietario/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping(path="/editProprietario/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RubricaDTO editProprietarioRubrica(@PathVariable int id, String proprietario) {
 		return service.editProprietarioRubrica(id, proprietario);
 	}
 	
-	@GetMapping(path="/editAnno/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping(path="/editAnno/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RubricaDTO editAnnoRubrica(@PathVariable int id, int anno) {
 		return service.editAnnoRubrica(id, anno);
 	}
@@ -86,12 +89,12 @@ public class RubricaController {
 	}
 	
 	@GetMapping(path="/selectNomeNumero/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public NomeNumeroRubricaDTO selectNomeNumeroRubrica(int id) {
+	public NomeNumeroRubricaDTO selectNomeNumeroRubrica(@PathVariable int id) {
 		return service.selectNomeNumeroRubrica(id);
 	}
 	
 	
-	@PostMapping(path="/{id}/new", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path="/{id}/new", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void newContatto(@PathVariable int id, @RequestBody ContattoDTO c) {
 		cservice.newContatto(id, c);
 	}
@@ -101,12 +104,12 @@ public class RubricaController {
 		return cservice.selectContatto(id, nome, cognome);
 	}
 
-	@PostMapping(path="/{id}/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public boolean editContatto(@PathVariable int id, @RequestBody ContattoDTO dto) {
-		return cservice.editContatto(id, dto);
+	@PutMapping(path="/{id}/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void editContatto(@PathVariable int id, @RequestBody ContattoDTO dto) {
+		cservice.editContatto(id, dto);
 	}
 	
-	@GetMapping(path="/{id}/remove/{nome}/{cognome}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path="/{id}/remove/{nome}/{cognome}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ContattoDTO removeContatto(@PathVariable int id, @PathVariable String nome, @PathVariable String cognome) {
 		return cservice.removeContatto(id, nome, cognome);
 	}
@@ -131,7 +134,7 @@ public class RubricaController {
 		return cservice.selectByNumero(id, numero);
 	}
 	
-	@GetMapping(path="/{id}/selectNomeCognomeByNumero", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path="/{id}/selectNomeCognomeByGruppo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<NomeCognomeDTO> selectNomeCognomeByGruppo(@PathVariable int id, String gruppo){
 		return cservice.selectNomeCognomeByGruppo(id, gruppo);
 	}
@@ -141,20 +144,21 @@ public class RubricaController {
 		return cservice.selectNumeriByGruppo(id, gruppo);
 	}
 	
-	@GetMapping(path="/{id}/removeByGruppo", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path="/{id}/removeByGruppo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> removeByGruppo(@PathVariable int id, String gruppo){
 		return cservice.removeByGruppo(id, gruppo);
 	}
 	
-	@GetMapping(path="/{id}/setPreferito/{nome}/{cognome}")
-	public boolean setPreferitoContatto(@PathVariable int id, @PathVariable String nome, @PathVariable String cognome) {
-		return cservice.setPreferitoContatto(id, nome, cognome);
+	@PatchMapping(path="/{id}/setPreferito/{nome}/{cognome}")
+	public void setPreferitoContatto(@PathVariable int id, @PathVariable String nome, @PathVariable String cognome) {
+		cservice.setPreferitoContatto(id, nome, cognome);
 	}
 	
 	@GetMapping(path="/{id}/selectByPreferito", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ContattoDTO> selectByPreferito(@PathVariable int id){
 		return cservice.selectByPreferito(id);
 	}
+	
 	
 	
 	@ExceptionHandler
