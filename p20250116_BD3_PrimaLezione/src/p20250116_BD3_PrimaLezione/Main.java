@@ -49,6 +49,6 @@ public class Main {
 		Document newDoc = new Document("name", "Osama")
 				.append("age", 35);
 		
-		return collection.find(newDoc);
+		return (Document) collection.find(newDoc);
 	}
 }

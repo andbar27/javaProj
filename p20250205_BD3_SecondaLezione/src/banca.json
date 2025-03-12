@@ -1,0 +1,40 @@
+// Cliente
+{
+	"id": 1,
+	"nome": "Marco",
+	"cognome": "Rossi",
+	"cod_fiscale": "BB22MM22",
+	"indirizzo": {
+		"nazione": "Italia",
+		"regione": "Lazio",
+		"citta": "Roma",
+		"via": "via nilo 3",
+		"cap": "00015"
+	},
+	"conti": [ObjectId(Conto), ObjectId(Conto)]
+}
+
+// Conto
+{
+	"id": 1,
+	"iban": "it11111",
+	"clienti": [ObjectId(Cliente), ObjectId(Cliente)],
+	"liquidita": 1000
+}
+
+// Tipo Movimento: "prelievo_contanti", "accredito_contanti", "accredito_assegno"
+// Movimento
+{
+	"cliente": ObjectId(Cliente),
+	"conto": ObjectId(Conto),
+	"importo": 200,
+	"tipo_accredito": "prelievo_contanti",
+	"data": 1738752380
+}
+
+//Chiusura Conto
+{
+	"conto": ObjectId(Conto),
+	"data": 1738752380,
+	"iban": "it11111"
+}

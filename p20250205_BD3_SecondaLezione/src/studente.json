@@ -1,0 +1,15 @@
+{
+	"matricola": 1,
+	"nome": "Marco",
+	"cognome": "Rossi",
+	"data_nascita": {
+		"anno": 2000,
+		"mese": 1,
+		"giorno": 1
+	},
+	"data_iscrizione": {
+		"anno": 2000,
+		"mese": 1,
+		"giorno": 1
+	}
+}
