@@ -7,15 +7,15 @@ import it.rubrica.entity.Rubrica;
 
 public interface RubricaDAO {
 	
-	public boolean insert(Rubrica rubrica);
+	boolean insert(Rubrica rubrica);
 	
-	public List<Rubrica> selectAll();
+	List<Rubrica> selectAll();
 
-	public Rubrica selectById(Integer idRubrica);
+	Rubrica selectById(Integer idRubrica);
 	
-	public boolean delete(Integer idRubrica);
+	boolean delete(Integer idRubrica);
 	
-	public Rubrica edit(Rubrica rubrica);
+	Rubrica edit(Rubrica rubrica);
 	
 	boolean insertContatto(Contatto contatto, Integer idRubrica);
 	
