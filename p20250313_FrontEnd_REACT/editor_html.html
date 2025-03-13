@@ -1,0 +1,248 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it-it" lang="it-it" >
+<head>
+<meta name="keywords" Content= "HTML, gui HTML, web editor html, dinamic html editor">
+<meta name= "author" Content = "Andrea Barbato">
+<title>Make Your Form</title>
+<script type="text/javascript" language="javascript">
+	var titleHead;	
+	var retHead = "<html><head></head>";
+	var retBody = new Array();
+	retBody[0] = "<body>"; var index = 0;
+	var nomeForm; var actionForm; var methodForm; var onSubmitForm;
+	
+	function make(str){
+		var inScript = document.generatore.InputScript.value; 
+		if((inScript.search("</sc")==-1)||(inScript.search("/script>")==-1))
+		{ alert("close the script."); return;}
+
+		index++;
+		retBody[index] = retBody[index-1] + str;	
+		loader();
+	}
+	function maker(){
+		if(document.generatore.ToWrite.value != "")
+			make(document.generatore.ToWrite.value);
+	}
+
+	function saver(){
+		var inScript = document.generatore.InputScript.value; 
+		if((inScript.search("</sc")==-1)||(inScript.search("/script>")==-1))
+		{ alert("close the script."); return;}
+
+		retHead = '<html><head><title>'+ titleHead + '</title>' + inScript + '</head>';
+		var saved = new String(retHead + retBody[index] + '</form></body></html>');
+		document.generatore.OutputForm.value = saved;
+		saved = saved.replace(/>/g,">\n");
+		alert(saved);
+		document.generatore.ToWrite.value = saved;
+		return saved;
+	}
+	function shower(){
+		var showed = new String(retHead + retBody[index]).replace(/>/g,">\n");
+		alert(showed);
+		return showed;
+	}
+
+	function loader(){
+		var inWrite = document.generatore.ToWrite.value;
+		var inScript = document.generatore.InputScript.value;
+		if((inScript.search("</sc")==-1)||(inScript.search("/script>")==-1))
+		{ alert("close the script."); return;}
+
+		retHead = '<html><head><title>'+ titleHead + '</title>' + inScript + '</head>';
+		document.open();
+		form_generatore();	//document.write(retHead) & form_generatore
+		document.generatore.ToWrite.value = inWrite;
+		document.generatore.InputScript.value = inScript;
+		document.write(retBody[index]);
+		document.write('</form></body></html>');
+	}
+	
+	function backer(){
+		var inScript = document.generatore.InputScript.value;
+		if((inScript.search("</sc")==-1)||(inScript.search("/script>")==-1))
+		{ alert("close the script."); return;}
+
+		if(index<=1) return;	index--;	
+		loader();
+	}
+	function forwarder(){
+		var inScript = document.generatore.InputScript.value;
+		if((inScript.search("</sc")==-1)||(inScript.search("/script>")==-1))
+		{ alert("close the script."); return;}
+
+		if(index+1 >= retBody.length) return; index++;
+		loader();
+	}		
+	
+	function form_generatore(){
+		document.write(retHead);	//Metto lo script nell'head
+		document.write('<form name="generatore" action=" " method="post">'); //Form di sistema "generatore"
+		document.write('<table><tr><th>[BODY] - ADD ELEMENTS</th> <th>[HEAD] - INSERT SCRIPTS</th><tr><th>');	
+		document.write('<textarea cols=72 rows=15 name="ToWrite"> <!-- Add Elements --> </textarea>');
+		document.write('</th><th>');
+		document.write('<textarea cols=72 rows=15 name="InputScript"> <!-- Scripts, remember to close it ;) Note: Not Infinite Loop--> \n <script type="text/javascript" language="javascript"> </textarea><br>');
+		document.write('<tr>');
+		document.write('<th>');
+		document.write('<input type="button" value="write" onClick="return maker();">');
+		document.write('<input type="button" value="undo" onClick="return backer();">');
+		document.write('<input type="button" value="redo" onClick="return forwarder();">')
+		document.write('<input type="button" value="show" onClick="return shower();">');
+		document.write('<input type="button" value="save" onClick="return saver();">');
+		document.write('</th><th>');
+		document.write('<input type="button" value="load" onClick="return loader();"></th>');
+		document.write('<tr>');
+		document.write('</table>');
+		document.write('<input type="text" name="OutputForm" size=147 onClick="this.setSelectionRange(0, this.value.length)">');
+		document.write('</form>'); //OMETTENDOLO POSSIAMO ISTANZIARE I MAKE DENTRO IL FORM!! *1
+	}
+	function initForm(){
+		titleHead = document.corpo.ttl.value;
+		retHead = '<html><head><title>' + titleHead + '</title></head>';
+		nomeForm=document.corpo.nm.value;
+		actionForm=document.corpo.actn.value;
+		methodForm=document.corpo.mthd.value;
+		onSubmitForm=document.corpo.nsbmt.value;
+		var param = '<form name="' + nomeForm + '" action="'+actionForm+'" method="'+methodForm+'" onSubmit="'+ onSubmitForm+ '">'; //Tag form con i miei parametri
+		document.open();
+		form_generatore(); 
+		index++; retBody[index] = retBody[index-1] + param;
+		document.write(retBody[index]);
+		document.write('</form></body></html>');
+	}			
+
+</script>
+
+
+
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script>
+	var n_in; var n_out;
+	var In = new Array(); var Out = new Array();
+	var select_par = '<option value="1">Int</option> <option value="2" selected>String</option> <option value="3">Float</option></select>';
+	function setOut(i, val){
+			if(i >= n_out) return;
+			$("#o" + i).val(val);
+	}
+	var Out = setOut;
+	function generaTag(str, n){
+		return(str + nn + '">');
+	}
+	function generaNin(n, size){
+		if(n <= 0) return;
+		var nn = size - n
+		document.write('<input type="text" id="t' + nn + '">');
+		document.write('<select id="s' + nn + '">');
+		document.write(select_par);
+		document.write('<button id="b' + nn + '">');
+		document.write('Get</button><br>');
+		generaNin(n-1, size);	
+	}
+	function generaNout(n, size){
+		if(n<=0) return;
+		var nn = size - n
+		document.write('<input type="text" id="o' + nn + '"><br>');
+		generaNout(n-1, size);
+	}
+	function form_coder(n_in, n_out){
+		retBody[index] = "";
+		titleHead = document.corpo.ttl.value;
+		retHead = '<html><head><title>' + titleHead + '</title></head>';
+		document.write(retHead);
+		retHead = " ";
+		document.write('<table><tr><td valign="top">');
+		generaNin(n_in, n_in);
+		document.write('</td><td><textarea cols="80%" rows="70%" id="txtScript"><!-- Scripts, remember to close it ;) Note: Not Infinite Loop -->\n<!-- Array Input[0, n_in-1]: In[i];  Set Output[0, n_out-1]: Out(pos, val); -->\n\n<script>\n$("#exe").click(function(){\n   Out(0,In[0]+In[1]);\n});</textarea></td><td valign="top">');
+		document.write('<input type="button" value="load" id="load1"><button onClick="shower();">show</button><input type="button" id="exe" value="exe"><br>');
+		generaNout(n_out, n_out);
+		document.write('</td></table>');
+	}
+	$(document).ready(function(){
+		function eventHandler(){
+			for(var i=0; i<n_in; i++){
+				$("#b" + i).click(function(){
+					var j = this.getAttribute("id").replace("b","");
+					var temp = $("#t" + j).val();
+					switch($("#s" + j).val()){
+						case "1":
+							if(!isNaN(temp))
+								In[parseInt(j)]=parseInt(temp);
+							else
+								alert("Insert a number please.");
+						break;
+
+						case "2":
+							In[parseInt(j)]=temp;
+						break;	
+
+						case "3":
+							if(!isNaN(temp))
+								In[parseInt(j)]=parseFloat(temp);
+							else
+								alert("Insert a number please.");
+						break;
+					}		
+				});			
+			}
+			$("#load1").click(function(){
+				var str = $("#txtScript").val();
+				if((str.search("</sc")==-1)||(str.search("/script>")==-1))
+				{ alert("close the script."); return;}
+				index++; retBody[index] = retBody[index-1] + str;
+				document.write(str);
+			});
+		}
+		$("#startCode").click(function(){
+			if(isNaN($("#nin").val()) || isNaN($("#nout").val()) ){
+				alert("N# INPUT & N# OUTPUT MUST BE NUMBERS");	
+				return;			
+			}
+			n_in = parseInt($("#nin").val());
+			n_out = parseInt($("#nout").val());
+			form_coder(n_in, n_out);
+			
+			eventHandler();
+		});
+	});
+</script>
+</head>
+
+<body>
+<form name="corpo" action="" method="post">
+	<table height="100%"><td valign=top>
+		<table width="30%">
+		<caption><h2> MAKE YOUR FORM </h2></caption>
+		<tr>
+		<th>TITLE</th> <th><input type="text" name="ttl" value=""></th>
+		<tr>
+		<th>NAME</th> <th><input type="text" name="nm" value="mioForm"></th>
+		<tr>
+		<th>ACTION</th> <th><input type="text" name="actn" value=" "></th>
+		<tr>
+		<th>METHOD</th> <th><input type="text" name="mthd" value="get"></th>
+		<tr>
+		<th>ONSUBMIT</th> <th><input type="text" name="nsbmt" value=" "></th>
+		<tr>
+		<th></th><th><input type="button" name="start" value="Start!" onClick="initForm();"></th>
+		</table>
+	</td>
+	<td valign=bottom><font size="-1">On The Fly</font></td>
+	<td valign=top>
+		<table width="30%">
+		<caption><h2> INPUT OUTPUT </h2></caption>
+		<tr>
+		<th>N# INPUT</th> <th><input type="text" id="nin" value="2"></th>
+		<tr>
+		<th>N# OUTPUT</th> <th><input type="text" id="nout" value="1"></th>
+		<tr>
+		<th></th><th><button id="startCode">Start to Code!</button></th>
+		</table>
+	</td></table>
+</form>
+</body>
+</html>
