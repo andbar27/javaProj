@@ -36,6 +36,11 @@ public class RubricaDAOImpl implements RubricaDAO{
 			e.printStackTrace();
 			throw new RuntimeException("connessione fallita: " + e.getMessage());
 		}
+		int a = 10;
+		int b = 10;
+		System.out.println((b++ == a) + " b: " + (a == b));
+		System.out.println(a+=1);
+		System.out.println(a);
 	}
 	
 	
