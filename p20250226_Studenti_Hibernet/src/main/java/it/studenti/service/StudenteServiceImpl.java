@@ -1,6 +1,7 @@
 package it.studenti.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,21 @@ public class StudenteServiceImpl implements StudenteService {
 		
 		dao.deleteById(matricola);
 		return true;
+	}
+	
+	public boolean edit(StudenteDTO dto) {
+		if(!dao.findById(dto.getMatricola()).isPresent())
+			return false;
+		
+		return dao.save(Conversion.fromStudenteDTOToStudente(dto)) != null;
+	}
+	
+	public List<StudenteDTO> getGiovani(int annoImm){
+		//return Conversion.fromStudentiToStudentiDTO(dao.getGiovani(annoImm));
+		
+		return dao.getGiovani(annoImm).stream()
+			.map(studente -> Conversion.fromStudenteToStudenteDTO(studente))
+			.collect(Collectors.toList());
 	}
 
 }

@@ -13,5 +13,9 @@ public interface StudenteService {
 	List<StudenteDTO> selectAll();
 	
 	boolean delete(String matricola);
+	
+	List<StudenteDTO> getGiovani(int annoImm);
+	
+	boolean edit(StudenteDTO dto);
 
 }
