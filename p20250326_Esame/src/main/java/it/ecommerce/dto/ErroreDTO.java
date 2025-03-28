@@ -1,4 +1,4 @@
-package it.impiegati.dto;
+package it.ecommerce.dto;
 
 public class ErroreDTO {
 	
@@ -18,4 +18,5 @@ public class ErroreDTO {
 	public void setMsg(String msg) {
 		this.msg = "Error: " + msg;
 	}
+
 }

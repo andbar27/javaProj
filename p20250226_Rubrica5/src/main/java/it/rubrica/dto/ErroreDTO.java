@@ -1,14 +1,13 @@
-package it.impiegati.dto;
+package it.rubrica.dto;
 
 public class ErroreDTO {
-	
 	private String msg;
 	
 	public ErroreDTO() {}
 
 	public ErroreDTO(String msg) {
 		super();
-		this.msg = "Error: " + msg;
+		this.msg = msg;
 	}
 
 	public String getMsg() {
@@ -16,6 +15,7 @@ public class ErroreDTO {
 	}
 
 	public void setMsg(String msg) {
-		this.msg = "Error: " + msg;
+		this.msg = msg;
 	}
+
 }
